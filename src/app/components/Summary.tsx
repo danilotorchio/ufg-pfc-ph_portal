@@ -1,6 +1,6 @@
-import { Component } from 'solid-js';
+import type { Component } from 'solid-js';
 
-import LayerIcon from '../assets/media/svg/misc/layer.svg';
+import LayerIcon from '../../assets/media/misc/layer.svg';
 
 const Summary: Component = () => {
   return (

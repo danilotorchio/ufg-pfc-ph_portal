@@ -1,8 +1,8 @@
 /* @refresh reload */
-import { Router } from '@solidjs/router';
 import { render } from 'solid-js/web';
+import { Router } from '@solidjs/router';
 
-import App from './App';
+import App from './app/App';
 
 render(
   () => (

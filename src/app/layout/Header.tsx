@@ -1,11 +1,8 @@
+import type { Component } from 'solid-js';
 import { A } from '@solidjs/router';
-import { Component } from 'solid-js';
 
-import LogoSmall from '../assets/media/logos/demo30-small.svg';
-import LogoDark from '../assets/media/logos/demo30-dark.png';
-import LogoSVG from '../assets/media/logos/demo30.svg';
-
-import Avatar from '../assets/media/avatars/300-11.jpg';
+import Logo from '../../assets/media/logos/ufg.svg';
+import Avatar from '../../assets/media/avatars/300-11.jpg';
 
 const Header: Component = () => {
   return (
@@ -24,22 +21,20 @@ const Header: Component = () => {
 
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
           <A href="/">
-            <img alt="Logo" src={LogoSmall} class="h-25px d-sm-none" />
-            <img alt="Logo" src={LogoDark} class="h-25px d-none d-sm-inline app-sidebar-logo-default theme-dark-show" />
-            <img alt="Logo" src={LogoSVG} class="h-25px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
+            <img alt="Logo" src={Logo} class="h-35px h-sm-50px d-sm-inline app-sidebar-logo-default theme-light-show" />
           </A>
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
           <div class="app-header-menu app-header-mobile-drawer align-items-stretch">
             <div class="menu menu-state-primary menu-column menu-lg-row menu-title-gray-700 menu-icon-gray-500 menu-arrow-gray-500 menu-bullet-gray-500 my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu">
-              <A href="/dashboard" activeClass="here" end={true} class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
+              <A href="/area/dashboard" activeClass="here" end={true} class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                 <span class="menu-link">
                   <span class="menu-title">Dashboard</span>
                   <span class="menu-arrow d-lg-none"></span>
                 </span>
               </A>
-              <A href="/report" activeClass="here" end={true} class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+              <A href="/area/report" activeClass="here" end={true} class="menu-item menu-lg-down-accordion me-0 me-lg-2">
                 <span class="menu-link">
                   <span class="menu-title">Relatórios</span>
                   <span class="menu-arrow d-lg-none"></span>

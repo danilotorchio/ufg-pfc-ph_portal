@@ -1,6 +1,6 @@
-import { type ParentComponent } from 'solid-js';
+import type { ParentComponent } from 'solid-js';
 
-import Summary from '../Components/Summary';
+import Summary from '../components/Summary';
 import Footer from './Footer';
 
 const Wrapper: ParentComponent = (props) => (
