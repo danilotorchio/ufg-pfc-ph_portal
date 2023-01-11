@@ -1,12 +1,18 @@
 import type { Component } from 'solid-js';
-import Comp from './Comp';
+import { Navigate, Route, Routes } from '@solidjs/router';
+
+import Layout from './layout/Layout';
+import Dashboard from './Components/Home';
 
 const App: Component = () => {
   return (
-    <>
-      <h1>Hello world!!!!</h1>
-      <Comp />
-    </>
+    <Layout>
+      <Routes>
+        <Route path="/dashboard" component={Dashboard} />
+
+        <Route path="**" element={<Navigate href="/dashboard" />} />
+      </Routes>
+    </Layout>
   );
 };
 
