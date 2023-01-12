@@ -1,22 +1,25 @@
-import { Component, lazy, Match, Suspense, Switch } from 'solid-js';
+import { type Component, lazy, Match, Suspense, Switch, Show } from 'solid-js';
+import { useFirebase } from './utils/firebase';
 
 const AppRoutes = lazy(() => import('./routes/AppRoutes'));
 const AuthRoutes = lazy(() => import('./routes/AuthRoutes'));
 
-const hasToken = false;
-
 const App: Component = () => {
+  const { authenticated, loadingDone } = useFirebase();
+
   return (
-    <Suspense fallback={<span>loading...</span>}>
-      <Switch>
-        <Match when={hasToken}>
-          <AppRoutes />
-        </Match>
-        <Match when={!hasToken}>
-          <AuthRoutes />
-        </Match>
-      </Switch>
-    </Suspense>
+    <Show when={loadingDone()} fallback={<span>loading...</span>}>
+      <Suspense fallback={<span>loading...</span>}>
+        <Switch>
+          <Match when={authenticated()}>
+            <AppRoutes />
+          </Match>
+          <Match when={!authenticated()}>
+            <AuthRoutes />
+          </Match>
+        </Switch>
+      </Suspense>
+    </Show>
   );
 };
 

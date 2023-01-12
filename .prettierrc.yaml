@@ -1,4 +1,4 @@
 arrowParens: always
 singleQuote: true
 jsxSingleQuote: false
-printWidth: 600
+printWidth: 120

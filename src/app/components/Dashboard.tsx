@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 
-const DashboardPage: Component = () => {
+const Dashboard: Component = () => {
   return (
     <div id="kt_app_content_container" class='app-container container-xxl'>
       <span>Home Page</span>
@@ -8,4 +8,4 @@ const DashboardPage: Component = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

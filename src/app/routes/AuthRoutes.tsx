@@ -10,6 +10,10 @@ const routes: RouteDefinition[] = [
         path: '/login',
         component: lazy(() => import('../components/auth/Login')),
       },
+      {
+        path: '/register',
+        component: lazy(() => import('../components/auth/Register')),
+      },
     ],
   },
   {
