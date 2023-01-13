@@ -24,7 +24,7 @@ const AuthLayout: Component = () => {
       {/* begin::Aside */}
       <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-right order-1 order-lg-2" style={asideStyles}>
         <div class="d-flex flex-column flex-end py-7 py-lg-15 px-5 px-md-15 w-100">
-          <img alt="Logo" src={LogoUFG} class="h-60px h-lg-75px my-5 my-sm-0 mb-sm-5" />
+          <img alt="Logo" src={LogoUFG} class="h-50px h-lg-75px my-5 my-sm-0 mb-sm-5" />
 
           <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">Rápido, Eficiente e Produtivo</h1>
 

@@ -10,12 +10,12 @@
     <link rel="shortcut icon" href="/favicon.png">
 
     <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700&display=swap" />
     <!--end::Fonts-->
 
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link defer href="/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link defer href="/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 </head>
 <body id="kt_app_body" data-kt-app-header-fixed-mobile="true" data-kt-app-toolbar-enabled="true" class="app-default">
@@ -30,8 +30,8 @@
     <script>var hostUrl = "/src/assets/";</script>
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="/plugins/global/plugins.bundle.js"></script>
-    <script src="/js/scripts.bundle.js"></script>
+    <script defer src="/plugins/global/plugins.bundle.js"></script>
+    <script defer src="/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
 
     <script src="/src/index.tsx" type="module"></script>
