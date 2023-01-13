@@ -11,26 +11,30 @@ const Summary: Component = () => {
             <div class="page-title d-flex align-items-center me-3">
               <img alt="Logo" src={LayerIcon} class="h-60px me-5" />
               <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
-                Chartmix - Finance Team
-                <span class="page-desc text-white opacity-50 fs-6 fw-bold pt-4">Power Elite Seller</span>
+                PH Station
+                <span class="page-desc text-white opacity-50 fs-6 fw-bold pt-4">Leituras de pH realizadas</span>
               </h1>
             </div>
             <div class="d-flex gap-4 gap-lg-13">
               <div class="d-flex flex-column">
                 <span class="text-white fw-bold fs-3 mb-1">$23,467.92</span>
-                <div class="text-white opacity-50 fw-bold">Avg. Monthly Sales</div>
+                <div class="text-white opacity-50 fw-bold">Qtd. Leituras</div>
               </div>
               <div class="d-flex flex-column">
                 <span class="text-white fw-bold fs-3 mb-1">$1,748.03</span>
-                <div class="text-white opacity-50 fw-bold">Today Spending</div>
+                <div class="text-white opacity-50 fw-bold">Méd. 24 horas</div>
               </div>
               <div class="d-flex flex-column">
                 <span class="text-white fw-bold fs-3 mb-1">3.8%</span>
-                <div class="text-white opacity-50 fw-bold">Overall Share</div>
+                <div class="text-white opacity-50 fw-bold">Méd. Semanal</div>
               </div>
               <div class="d-flex flex-column">
                 <span class="text-white fw-bold fs-3 mb-1">-7.4%</span>
-                <div class="text-white opacity-50 fw-bold">7 Days</div>
+                <div class="text-white opacity-50 fw-bold">Méd. Mensal</div>
+              </div>
+              <div class="d-flex flex-column">
+                <span class="text-white fw-bold fs-3 mb-1">-7.4%</span>
+                <div class="text-white opacity-50 fw-bold">Desvio Padão</div>
               </div>
             </div>
           </div>

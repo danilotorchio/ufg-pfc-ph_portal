@@ -2,9 +2,7 @@ import { Component, createEffect } from 'solid-js';
 import { A } from '@solidjs/router';
 
 import { useFirebase } from '../utils/firebase';
-
 import Logo from '../../assets/media/logos/ufg.svg';
-import Avatar from '../../assets/media/avatars/300-11.jpg';
 
 const Header: Component = () => {
   const { auth } = useFirebase();
@@ -45,9 +43,7 @@ const Header: Component = () => {
         </div>
 
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15">
-          <A href="/">
-            <img alt="Logo" src={Logo} class="h-35px h-sm-50px d-sm-inline app-sidebar-logo-default theme-light-show" />
-          </A>
+          <img alt="Logo" src={Logo} class="h-35px h-sm-50px d-sm-inline app-sidebar-logo-default theme-light-show" />
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
@@ -63,18 +59,7 @@ const Header: Component = () => {
                 class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2"
               >
                 <span class="menu-link">
-                  <span class="menu-title">Dashboard</span>
-                  <span class="menu-arrow d-lg-none"></span>
-                </span>
-              </A>
-              <A
-                href="/area/report"
-                activeClass="here"
-                end={true}
-                class="menu-item menu-lg-down-accordion me-0 me-lg-2"
-              >
-                <span class="menu-link">
-                  <span class="menu-title">Relatórios</span>
+                  <span class="menu-title text-hover-primary">Dashboard</span>
                   <span class="menu-arrow d-lg-none"></span>
                 </span>
               </A>
@@ -89,7 +74,11 @@ const Header: Component = () => {
                 data-kt-menu-attach="parent"
                 data-kt-menu-placement="bottom-end"
               >
-                <img class="symbol symbol-circle symbol-35px symbol-md-45px" src={Avatar} alt="user" />
+                <img
+                  class="symbol symbol-circle symbol-35px symbol-md-45px"
+                  src={auth.currentUser.photoURL}
+                  alt="user"
+                />
               </div>
               <div
                 class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
@@ -98,22 +87,17 @@ const Header: Component = () => {
                 <div class="menu-item px-3">
                   <div class="menu-content d-flex align-items-center px-3">
                     <div class="symbol symbol-50px me-5">
-                      <img alt="Logo" src={Avatar} />
+                      <img alt="Logo" src={auth.currentUser.photoURL} />
                     </div>
                     <div class="d-flex flex-column">
-                      <div class="fw-bold d-flex align-items-center fs-5">
-                        {auth.currentUser.displayName}
-                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
-                      </div>
-                      <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                        {auth.currentUser.email}
-                      </a>
+                      <div class="fw-bold d-flex align-items-center fs-5">{auth.currentUser.displayName}</div>
+                      <span class="fw-semibold text-muted fs-7">{auth.currentUser.email}</span>
                     </div>
                   </div>
                 </div>
                 <div class="separator my-2"></div>
                 <div class="menu-item px-5 my-1">
-                  <a href="../../demo30/dist/account/settings.html" class="menu-link px-5">
+                  <a href="javascript:;" class="menu-link px-5">
                     Minha conta
                   </a>
                 </div>

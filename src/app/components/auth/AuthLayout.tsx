@@ -2,7 +2,7 @@ import type { Component } from 'solid-js';
 import { Outlet } from '@solidjs/router';
 
 import LogoUFG from '../../../assets/media/logos/ufg.svg';
-import AuthImageBg from '../../../assets/media/misc/vaca.jpeg';
+import AuthImageBg from '../../../assets/media/misc/gado.jpeg';
 
 const asideStyles = {
   'background-image': `url(${AuthImageBg})`,
