@@ -8,7 +8,7 @@ const routes: RouteDefinition[] = [
     children: [
       {
         path: '/dashboard',
-        component: lazy(() => import('../components/Dashboard')),
+        component: lazy(() => import('../components/dashboard/Dashboard')),
       },
     ],
   },

@@ -6,10 +6,9 @@ import Logo from '../../assets/media/logos/ufg.svg';
 
 const Header: Component = () => {
   const { auth } = useFirebase();
+  const handleLogout = () => auth.signOut();
 
   createEffect(() => KTMenu.createInstances());
-
-  const handleLogout = () => auth.signOut();
 
   return (
     <div

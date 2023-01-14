@@ -1,26 +1,53 @@
-import { Component, createEffect } from 'solid-js';
+import {
+  collection,
+  DocumentData,
+  limit,
+  onSnapshot,
+  orderBy,
+  Query,
+  query,
+  Unsubscribe,
+  where,
+} from 'firebase/firestore';
 
-const Dashboard: Component = () => {
-  const initChartsWidget3 = () => {
-    var element = document.getElementById('kt_charts_widget_3_chart');
+import { createEffect, createSignal, onCleanup, type Component } from 'solid-js';
 
+import { useFirebase } from '../../utils/firebase';
+
+const Chart: Component = () => {
+  let element: HTMLDivElement;
+  let unsub: Unsubscribe;
+
+  const { auth, db } = useFirebase();
+
+  const [cQuery, setQuery] = createSignal<Query<DocumentData>>(
+    query(
+      collection(db, `accounts/${auth.currentUser.uid}/data`),
+      where('status', '==', 'valid'),
+      orderBy('timestamps', 'asc'),
+      limit(15)
+    )
+  );
+
+  const [chartData, setChartData] = createSignal<DocumentData[]>([]);
+
+  function initChart() {
     if (!element) {
       return;
     }
 
-    var chart = {
+    const chart = {
       self: null,
       rendered: false,
     };
 
-    var initChart = function () {
-      var height = parseInt(KTUtil.css(element, 'height'));
-      var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-      var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-      var baseColor = KTUtil.getCssVariableValue('--kt-info');
-      var lightColor = KTUtil.getCssVariableValue('--kt-info-light');
+    const _init = () => {
+      const labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
+      const borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+      const baseColor = KTUtil.getCssVariableValue('--kt-info');
+      const lightColor = KTUtil.getCssVariableValue('--kt-info-light');
 
-      var options = {
+      const options = {
         series: [
           {
             name: 'Net Profit',
@@ -144,36 +171,38 @@ const Dashboard: Component = () => {
     };
 
     // Init chart
-    initChart();
-  };
+    _init();
+  }
 
-  createEffect(() => initChartsWidget3());
+  createEffect(() => {
+    if (!!unsub) unsub();
 
-  // prettier-ignore
+    console.log('Vou fazer a consulta');
+    unsub = onSnapshot(cQuery(), (snap) => {
+      console.log('Entrei no snapshot');
+      setChartData(
+        snap.docs.map((doc) => {
+          const data = doc.data();
+          const date = new Date(data.timestamps);
+
+          return { ...data, label: `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}` };
+        })
+      );
+      setTimeout(() => initChart());
+    });
+  });
+
+  onCleanup(() => {
+    if (!!unsub) unsub();
+  });
+
   return (
-    <div id="kt_app_content_container">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-xl-stretch">
-            <div class="card-header border-0 pt-5">
-              <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bold fs-3 mb-1">Últimas leituras</span>
-                <span class="text-muted fw-semibold fs-7">Mais de 1000 novos registros</span>
-              </h3>
-              <div class="card-toolbar" data-kt-buttons="true">
-                <a class="btn btn-sm btn-color-muted btn-active btn-active-primary active px-4 me-1" id="kt_charts_widget_3_year_btn">Hoje</a>
-                <a class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1" id="kt_charts_widget_3_month_btn">Semana</a>
-                <a class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4" id="kt_charts_widget_3_week_btn">Mês</a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div id="kt_charts_widget_3_chart"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <div ref={element}></div>
+
+      <div class="mt-10">{JSON.stringify(chartData())}</div>
+    </>
   );
 };
 
-export default Dashboard;
+export default Chart;
