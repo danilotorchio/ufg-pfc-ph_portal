@@ -11,12 +11,19 @@ import {
 } from 'firebase/firestore';
 
 import { createEffect, createSignal, onCleanup, type Component } from 'solid-js';
+import { DateTime } from 'luxon';
 
 import { useFirebase } from '../../utils/firebase';
+import { chartOptions } from './ChartOptions';
 
 const Chart: Component = () => {
   let element: HTMLDivElement;
   let unsub: Unsubscribe;
+
+  const chart = {
+    self: null,
+    rendered: false,
+  };
 
   const { auth, db } = useFirebase();
 
@@ -36,159 +43,50 @@ const Chart: Component = () => {
       return;
     }
 
-    const chart = {
-      self: null,
-      rendered: false,
-    };
+    chart.self = new ApexCharts(
+      element,
+      chartOptions({
+        data: [],
+        categories: [],
+      })
+    );
 
-    const _init = () => {
-      const labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-      const borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-      const baseColor = KTUtil.getCssVariableValue('--kt-info');
-      const lightColor = KTUtil.getCssVariableValue('--kt-info-light');
+    chart.self.render();
+    chart.rendered = true;
+  }
 
-      const options = {
+  function updateChart() {
+    if (chart.rendered) {
+      const data = chartData();
+
+      chart.self.updateOptions({
         series: [
           {
-            name: 'Net Profit',
-            data: [30, 40, 40, 90, 90, 70, 70],
+            data: data.map((x) => x.value),
           },
         ],
-        chart: {
-          fontFamily: 'inherit',
-          type: 'area',
-          height: 450,
-          toolbar: {
-            show: false,
-          },
-        },
-        plotOptions: {},
-        legend: {
-          show: false,
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        fill: {
-          type: 'solid',
-          opacity: 1,
-        },
-        stroke: {
-          curve: 'smooth',
-          show: true,
-          width: 3,
-          colors: [baseColor],
-        },
         xaxis: {
-          categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-          axisBorder: {
-            show: false,
-          },
-          axisTicks: {
-            show: false,
-          },
-          labels: {
-            style: {
-              colors: labelColor,
-              fontSize: '12px',
-            },
-          },
-          crosshairs: {
-            position: 'front',
-            stroke: {
-              color: baseColor,
-              width: 1,
-              dashArray: 3,
-            },
-          },
-          tooltip: {
-            enabled: true,
-            formatter: undefined,
-            offsetY: 0,
-            style: {
-              fontSize: '12px',
-            },
-          },
+          categories: data.map((x) => x.label),
         },
-        yaxis: {
-          labels: {
-            style: {
-              colors: labelColor,
-              fontSize: '12px',
-            },
-          },
-        },
-        states: {
-          normal: {
-            filter: {
-              type: 'none',
-              value: 0,
-            },
-          },
-          hover: {
-            filter: {
-              type: 'none',
-              value: 0,
-            },
-          },
-          active: {
-            allowMultipleDataPointsSelection: false,
-            filter: {
-              type: 'none',
-              value: 0,
-            },
-          },
-        },
-        tooltip: {
-          style: {
-            fontSize: '12px',
-          },
-          y: {
-            formatter: function (val) {
-              return '$' + val + ' thousands';
-            },
-          },
-        },
-        colors: [lightColor],
-        grid: {
-          borderColor: borderColor,
-          strokeDashArray: 4,
-          yaxis: {
-            lines: {
-              show: true,
-            },
-          },
-        },
-        markers: {
-          strokeColor: baseColor,
-          strokeWidth: 3,
-        },
-      };
-
-      chart.self = new ApexCharts(element, options);
-      chart.self.render();
-      chart.rendered = true;
-    };
-
-    // Init chart
-    _init();
+      });
+    }
   }
 
   createEffect(() => {
+    if (!chart.rendered) initChart();
     if (!!unsub) unsub();
 
-    console.log('Vou fazer a consulta');
     unsub = onSnapshot(cQuery(), (snap) => {
-      console.log('Entrei no snapshot');
       setChartData(
         snap.docs.map((doc) => {
           const data = doc.data();
-          const date = new Date(data.timestamps);
+          const date = DateTime.fromMillis(data.timestamps);
 
-          return { ...data, label: `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}` };
+          return { value: data.reading.toFixed(2), label: `${date.toLocaleString(DateTime.TIME_WITH_SECONDS)}` };
         })
       );
-      setTimeout(() => initChart());
+
+      setTimeout(() => updateChart());
     });
   });
 
@@ -199,8 +97,6 @@ const Chart: Component = () => {
   return (
     <>
       <div ref={element}></div>
-
-      <div class="mt-10">{JSON.stringify(chartData())}</div>
     </>
   );
 };

@@ -1,7 +1,11 @@
 import { Component } from 'solid-js';
+import { useFirebase } from '../../utils/firebase';
+
 import Chart from './Chart';
 
 const Dashboard: Component = () => {
+  const { auth } = useFirebase();
+
   // prettier-ignore
   return (
     <div id="kt_app_content_container">

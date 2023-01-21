@@ -22,8 +22,14 @@ export const FirebaseProvider: ParentComponent<{ options: FirebaseOptions }> = (
   const [authenticated, setAuthenticated] = createSignal(false);
   const [loadingDone, setLoadingDone] = createSignal(false);
 
-  onAuthStateChanged(auth, (user) => {
-    setAuthenticated(!!user);
+  onAuthStateChanged(auth, async (user) => {
+    const userLoggedIn = !!user;
+    setAuthenticated(userLoggedIn);
+
+    if (userLoggedIn) {
+      const token = await user.getIdToken();
+      console.log(`Api token: ${token}`);
+    }
 
     if (!loadingDone()) {
       setLoadingDone(true);

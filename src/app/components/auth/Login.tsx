@@ -38,10 +38,10 @@ const Login: ParentComponent = () => {
     setLoading(true);
 
     if (form.email.trim() !== '' && form.password.trim() !== '') {
+      await setPersistence(auth, browserSessionPersistence);
+
       try {
-        await setPersistence(auth, browserSessionPersistence).then(async () => {
-          await signInWithEmailAndPassword(auth, form.email, form.password);
-        });
+        await signInWithEmailAndPassword(auth, form.email, form.password);
       } catch (error) {
         console.error(error);
       }

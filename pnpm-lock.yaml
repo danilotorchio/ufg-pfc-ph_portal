@@ -2,9 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@solidjs/router': ^0.6.0
+  '@types/luxon': ^3.2.0
   '@types/md5': ^2.3.2
   animate.css: ^4.1.1
   firebase: ^9.15.0
+  luxon: ^3.2.1
   md5: ^2.3.0
   solid-js: ^1.6.6
   typescript: ^4.9.4
@@ -15,10 +17,12 @@ dependencies:
   '@solidjs/router': 0.6.0_solid-js@1.6.6
   animate.css: 4.1.1
   firebase: 9.15.0
+  luxon: 3.2.1
   md5: 2.3.0
   solid-js: 1.6.6
 
 devDependencies:
+  '@types/luxon': 3.2.0
   '@types/md5': 2.3.2
   typescript: 4.9.4
   vite: 4.0.3
@@ -1125,6 +1129,10 @@ packages:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
     dev: false
 
+  /@types/luxon/3.2.0:
+    resolution: {integrity: sha512-lGmaGFoaXHuOLXFvuju2bfvZRqxAqkHPx9Y9IQdQABrinJJshJwfNCKV+u7rR3kJbiqfTF/NhOkcxxAFrObyaA==}
+    dev: true
+
   /@types/md5/2.3.2:
     resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
     dev: true
@@ -1448,6 +1456,11 @@ packages:
     dependencies:
       yallist: 3.1.1
     dev: true
+
+  /luxon/3.2.1:
+    resolution: {integrity: sha512-QrwPArQCNLAKGO/C+ZIilgIuDnEnKx5QYODdDtbFaxzsbZcc/a7WFq7MhsVYgRlwawLtvOUESTlfJ+hc/USqPg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /md5/2.3.0:
     resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
