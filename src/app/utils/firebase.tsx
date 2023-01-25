@@ -26,11 +26,6 @@ export const FirebaseProvider: ParentComponent<{ options: FirebaseOptions }> = (
     const userLoggedIn = !!user;
     setAuthenticated(userLoggedIn);
 
-    if (userLoggedIn) {
-      const token = await user.getIdToken();
-      console.log(`Api token: ${token}`);
-    }
-
     if (!loadingDone()) {
       setLoadingDone(true);
     }

@@ -30,7 +30,7 @@ const Chart: Component = () => {
   const [cQuery, setQuery] = createSignal<Query<DocumentData>>(
     query(
       collection(db, `accounts/${auth.currentUser.uid}/data`),
-      where('status', '==', 'valid'),
+      where('valid', '==', true),
       orderBy('timestamps', 'asc'),
       limit(15)
     )
@@ -80,7 +80,7 @@ const Chart: Component = () => {
       setChartData(
         snap.docs.map((doc) => {
           const data = doc.data();
-          const date = DateTime.fromMillis(data.timestamps);
+          const date = DateTime.fromSeconds(data.timestamps);
 
           return { value: data.reading.toFixed(2), label: `${date.toLocaleString(DateTime.TIME_WITH_SECONDS)}` };
         })
