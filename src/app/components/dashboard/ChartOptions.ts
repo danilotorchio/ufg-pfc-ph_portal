@@ -1,15 +1,13 @@
 const labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
+const strokeColor = KTUtil.getCssVariableValue('--kt-gray-300');
+
+const color1 = KTUtil.getCssVariableValue('--kt-info');
+const color2 = KTUtil.getCssVariableValue('--kt-warning');
+
 const borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-const baseColor = KTUtil.getCssVariableValue('--kt-info');
-const lightColor = KTUtil.getCssVariableValue('--kt-info-light');
 
 export const chartOptions = ({ data, categories }) => ({
-  series: [
-    {
-      name: 'Leitura',
-      data: data,
-    },
-  ],
+  series: data,
   chart: {
     fontFamily: 'inherit',
     type: 'area',
@@ -26,14 +24,20 @@ export const chartOptions = ({ data, categories }) => ({
     enabled: false,
   },
   fill: {
-    type: 'solid',
-    opacity: 1,
+    type: 'gradient',
+    gradient: {
+      shadeIntensity: 1,
+      inverseColors: false,
+      opacityFrom: 0.4,
+      opacityTo: 0,
+      stops: [20, 100, 100, 100],
+    },
   },
   stroke: {
     curve: 'smooth',
     show: true,
     width: 3,
-    colors: [baseColor],
+    colors: [color1, color2],
   },
   xaxis: {
     categories: categories,
@@ -52,7 +56,7 @@ export const chartOptions = ({ data, categories }) => ({
     crosshairs: {
       position: 'front',
       stroke: {
-        color: baseColor,
+        color: strokeColor,
         width: 1,
         dashArray: 3,
       },
@@ -66,16 +70,36 @@ export const chartOptions = ({ data, categories }) => ({
       },
     },
   },
-  yaxis: {
-    labels: {
-      style: {
-        colors: labelColor,
-        fontSize: '12px',
+  yaxis: [
+    {
+      title: {
+        text: 'Leitura (pH)',
       },
+      labels: {
+        style: {
+          colors: labelColor,
+          fontSize: '12px',
+        },
+        formatter: (val: number) => val.toFixed(0),
+      },
+      min: 0,
+      max: 14,
     },
-    min: 0,
-    max: 14
-  },
+    {
+      title: {
+        text: 'Temperatura (°C)',
+      },
+      labels: {
+        style: {
+          colors: labelColor,
+          fontSize: '12px',
+        },
+        formatter: (val: number) => val.toFixed(1),
+      },
+      opposite: true,
+      forceNiceScale: true,
+    },
+  ],
   states: {
     normal: {
       filter: {
@@ -102,12 +126,13 @@ export const chartOptions = ({ data, categories }) => ({
       fontSize: '12px',
     },
     y: {
-      formatter: function (val) {
-        return val + ' pH';
+      formatter: function (val: number, { seriesIndex }) {
+        if (seriesIndex == 0) return val + ' pH';
+        return val + ' °C';
       },
     },
   },
-  colors: [lightColor],
+  colors: [color1, color2],
   grid: {
     borderColor: borderColor,
     strokeDashArray: 4,
@@ -118,7 +143,8 @@ export const chartOptions = ({ data, categories }) => ({
     },
   },
   markers: {
-    strokeColor: baseColor,
+    colors: [color1, color2],
+    strokeColor: [color1, color2],
     strokeWidth: 3,
   },
 });

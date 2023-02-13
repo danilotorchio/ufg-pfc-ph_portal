@@ -63,7 +63,12 @@ const Chart: Component = () => {
       chart.self.updateOptions({
         series: [
           {
+            name: 'Leitura',
             data: data.map((x) => x.value),
+          },
+          {
+            name: 'Temp.',
+            data: data.map((x) => x.temp),
           },
         ],
         xaxis: {
@@ -84,7 +89,12 @@ const Chart: Component = () => {
       setChartData(
         dataArray.map((data) => {
           const date = DateTime.fromSeconds(data.timestamps);
-          return { value: data.reading.toFixed(2), label: `${date.toLocaleString(DateTime.TIME_WITH_SECONDS)}` };
+
+          return {
+            value: data.reading.toFixed(2),
+            temp: data.temp.toFixed(1),
+            label: `${date.toLocaleString(DateTime.TIME_WITH_SECONDS)}`,
+          };
         })
       );
 
@@ -118,21 +128,21 @@ const Chart: Component = () => {
         </h3>
         <div class="card-toolbar" data-kt-buttons="true">
           <a
-            classList={{active: filterCount() === 10}}
+            classList={{ active: filterCount() === 10 }}
             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1"
             onClick={() => setFilterCount(10)}
           >
             10
           </a>
           <a
-            classList={{active: filterCount() === 15}}
+            classList={{ active: filterCount() === 15 }}
             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4 me-1"
             onClick={() => setFilterCount(15)}
           >
             15
           </a>
           <a
-            classList={{active: filterCount() === 30}}
+            classList={{ active: filterCount() === 30 }}
             class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4"
             onClick={() => setFilterCount(30)}
           >

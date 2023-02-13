@@ -31,7 +31,7 @@ const Summary: Component = () => {
             <div class="page-title d-flex align-items-center me-3">
               <img alt="Logo" src={LayerIcon} class="h-60px me-5" />
               <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
-                PH Station
+                pH Station
                 <span class="page-desc text-white opacity-50 fs-6 fw-bold pt-4">Leituras de pH realizadas</span>
               </h1>
             </div>
